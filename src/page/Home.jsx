@@ -115,6 +115,13 @@ export default function Home() {
   const[showSlider,setShowSlider] = useState(true);
   const[showNewChat,setShowNewChat] = useState(false);
   const[user,setUser] = useState(null);
+  const images = [
+    './imgs/1.webp',
+    './imgs/2.webp',
+    './imgs/3.jpg',
+    './imgs/5.webp',
+    './imgs/6.webp',
+  ]
 
   useEffect(() => {
     if(user !== null){
@@ -128,11 +135,17 @@ export default function Home() {
     setShowSlider(false);
   }
 
+  const imgRandom = () => {
+    const val = Math.floor(Math.random() * 4);
+    return images[val];
+  }
+
   const handleLoginData = async (u) =>{
+    let img = imgRandom();
     let newUser = {
         id: u.uid,
         name:u.displayName,
-        avatar:'https://t3.ftcdn.net/jpg/03/39/45/96/360_F_339459697_XAFacNQmwnvJRqe1Fe9VOptPWMUxlZP8.jpg'
+        avatar:img
     }
     await Api.addUser(newUser);
     setUser(newUser)
