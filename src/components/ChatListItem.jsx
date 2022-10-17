@@ -66,7 +66,8 @@ const Msg = styled.p`
 `;
 
 export default function ChatListItem({onClick, active, data}) {
- const[time,setTime] = useState("");
+ 
+const[time,setTime] = useState("");
  
  useEffect(() => {
     if(data.lastMessageDate > 0){
