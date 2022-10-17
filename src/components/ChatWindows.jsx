@@ -71,6 +71,7 @@ const Body = styled.div`
   height: calc(100% - 62px);
   position: relative;
   top:60px;
+  width: 100%;
   overflow-y: auto;
   background-color: #FFF;
   background-size: cover;
@@ -93,10 +94,14 @@ const Footer = styled.div`
   height: 62px;
   display: flex;
   align-items: center;
-  position: fixed;
-  bottom: 0;
   width: 100%;
   background-color: #FFF;
+  position: relative;
+  @media (max-width:991px) {
+    position: fixed;
+    bottom: 0;
+    left:0;
+  }
 `;
 
 const Pre = styled.div`

@@ -105,6 +105,7 @@ const IconBtn = styled.div`
 
 const Contentarea = styled.div`
     flex:1;
+    overflow-x: hidden;
 `;
 
 

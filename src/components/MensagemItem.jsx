@@ -14,13 +14,17 @@ const MessageItem = styled.div`
     display: flex;
     flex-direction: column;
     padding: 3px;
+    height: auto;
     max-width: 90%;
     background-color: ${props => props.bc};
+    overflow: hidden;
 `;
 
-const Text = styled.span`
+const Text = styled.p`
     font-size: 14px;
     margin:5px 40px 5px 5px;
+    overflow-wrap: break-word;
+
 `;
 
 const Data = styled.span`
