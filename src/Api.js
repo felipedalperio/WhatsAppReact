@@ -31,7 +31,7 @@ export default{
         let results = await db.collection('users').get();
         results.forEach(result => {
             let data = result.data();   //aqui a gente verifica se o já não existe o contato no chatList
-            if(result.id !== userId && !chatList.filter(x => x.id === result.id)){
+            if(result.id !== userId && chatList.filter(x => x.with == result.id) ==  false){
                 list.push({
                     id:result.id,
                     name:data.name,

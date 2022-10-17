@@ -88,7 +88,7 @@ export default function NewChat({user,chatList,show,setShow}) {
         }
     }
     getList();
-  },[user])
+  },[chatList])
 
   const addNewChat = async (user2) =>{
      await Api.addNewChat(user,user2)
