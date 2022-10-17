@@ -122,6 +122,12 @@ export default function Home() {
     './imgs/3.jpg',
     './imgs/5.webp',
     './imgs/6.webp',
+    './imgs/7.png',
+    './imgs/8.png',
+    './imgs/9.webp',
+    './imgs/10.jfif',
+    './imgs/11.png',
+    './imgs/12.png',
   ]
 
   useEffect(() => {
@@ -137,7 +143,7 @@ export default function Home() {
   }
 
   const imgRandom = () => {
-    const val = Math.floor(Math.random() * 4);
+    const val = Math.floor(Math.random() * 10);
     return images[val];
   }
 
