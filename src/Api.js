@@ -26,12 +26,12 @@ export default{
             avatar:u.avatar
         }, {merge:true})  
     },
-    getContatoList:async(userId)=>{
+    getContatoList:async(userId,chatList)=>{
         let list = [];
         let results = await db.collection('users').get();
         results.forEach(result => {
-            let data = result.data();
-            if(result.id !== userId){
+            let data = result.data();   //aqui a gente verifica se o já não existe o contato no chatList
+            if(result.id !== userId && !chatList.filter(x => x.id === result.id)){
                 list.push({
                     id:result.id,
                     name:data.name,

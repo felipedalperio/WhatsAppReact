@@ -83,7 +83,7 @@ export default function NewChat({user,chatList,show,setShow}) {
   useEffect(() =>{
     const getList = async () => {
         if(user !== null){
-            let results = await Api.getContatoList(user.id);
+            let results = await Api.getContatoList(user.id,chatList);
             setList(results);
         }
     }
