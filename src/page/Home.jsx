@@ -17,7 +17,7 @@ const AppWindow   = styled.div`
     background-color: #EDEDED;
 `;
 
-const Sliderbar   = styled.div`
+const Sliderbar= styled.div`
     width:35%;
     max-width:415px;
     display: flex;
@@ -33,6 +33,7 @@ const Sliderbar   = styled.div`
         height: 100vh;
         transform: translateX(${props=>props.showSlider ? '0%' : '-100%'} )
     }
+    z-index: 999;
 `;
 
 const Header = styled.header`

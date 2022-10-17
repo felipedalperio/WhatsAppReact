@@ -15,6 +15,7 @@ const Container = styled.div`
   display:flex;
   flex-direction: column;
   height: 100%;
+  overflow: hidden;
 `;
 
 const Header = styled.div`
@@ -23,6 +24,11 @@ const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position:fixed;
+  top:0;
+  width: 100%;
+  background-color: #FFF;
+  z-index: 99;
 `;
 
 const Info = styled.div`
@@ -62,14 +68,15 @@ const Name = styled.span`
 `;
 
 const Body = styled.div`
-  flex:1;
+  height: calc(100% - 62px);
+  position: relative;
+  top:60px;
   overflow-y: auto;
   background-color: #FFF;
   background-size: cover;
   background-position: center;
-  background-image: url('https://personalmarketingdigital.com.br/wp-content/uploads/2018/05/background-whatsapp-7.jpg');
-  padding: 20px 30px;
-
+  background-image: url('https://marketplace.canva.com/EAFHm4JWsu8/1/0/1600w/canva-pink-landscape-desktop-wallpaper-HGxdJA_xIx0.jpg');
+  padding: 20px 30px 80px 30px;
   &::-webkit-scrollbar{
     width: 6px;
     height: 6px;
@@ -86,6 +93,10 @@ const Footer = styled.div`
   height: 62px;
   display: flex;
   align-items: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #FFF;
 `;
 
 const Pre = styled.div`
@@ -187,7 +198,7 @@ export default function ChatWindows({user,setShowSlider,data}) {
             <MensagemItem key={key} data={item} user={user}/>
           ))}
       </Body>
-      <EmojiContainer open={emojiOpen ? '300px' : '0px'}>
+      <EmojiContainer open={emojiOpen ? '100%' : '0px'}>
           <EmojiPicker 
             onEmojiClick={handleEmojiClick}
             disabledSkinTonePicker
@@ -222,7 +233,7 @@ export default function ChatWindows({user,setShowSlider,data}) {
                      />
           </InputArea>
           <Pos>
-              <Icon>
+              <Icon onClick={handleSendClick}>
                   <Send style={{color:"#919191"}} />
               </Icon>
           </Pos>
