@@ -64,6 +64,12 @@ const Avatar = styled.img`
 `;
 
 const Name = styled.span`
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  @media (max-width:661px) {
+    width: 140px;
+  }
 
 `;
 
@@ -134,6 +140,16 @@ const EmojiContainer = styled.div`
   height: ${props => props.open};
 `;
 
+const InfoGroup = styled.div`
+   display: flex;
+   flex-direction:column;
+`;
+
+const Online = styled.span`
+   font-size:14px;
+   color:#a5a5a5;
+`;
+
 export default function ChatWindows({user,setShowSlider,data}) {
   const body = useRef();
   
@@ -141,18 +157,39 @@ export default function ChatWindows({user,setShowSlider,data}) {
   const[text, setText] = useState("");
   const[list,setList] = useState([]);
   const[users,setUsers] = useState([]);
+  const[typing,setTyping] = useState([]);
+  const[isTyping,setIsTyping] = useState("");
 
   useEffect(() =>{
    setList([]) //limpa o chat;
    let unsub = Api.onChatContent(data.chatId,setList,setUsers);
    return unsub;
   },[data.chatId])
+
+  useEffect(() => {
+    let unsub = Api.onTyping(data.chatId,setTyping);
+    
+    for(let e in typing){
+        if(typing[e].idUser == data.with){
+           if(typing[e].typing == true){
+             setIsTyping("digitando...")
+           }else{
+            setIsTyping("")
+           }
+        }
+    }
+    return unsub;
+  });
   
   const handleEmojiClick = (e, emojiObject) => {
     setText(text + emojiObject.emoji);
   }
   const handleOpenEmoji = () => {
     setEmojiOpen(emojiOpen ? false : true)
+  }
+
+  function inputChange(msg){
+    setText(msg);
   }
 
   const handleInputKeyUp = (e) =>{
@@ -176,15 +213,36 @@ export default function ChatWindows({user,setShowSlider,data}) {
     }
   },[list])
 
+  function slider(){
+    setShowSlider(true)
+    Api.typing(data.chatId,user.id,false);
+  }
+
+  useEffect(() =>{
+    if(text != ""){
+      Api.typing(data.chatId,user.id,true);
+    }else{
+      Api.typing(data.chatId,user.id,false);
+    }
+  },[text])
+
+  window.onunload = function(){ //faz algo quando fecha o navegador
+    Api.typing(data.chatId,user.id,false);
+  }
+
   return (
     <Container>
       <Header>
         <Info>
-            <Icon onClick={() => setShowSlider(true)}>
+            <Icon onClick={() => slider()}>
                 <Arrow style={{color:"#919191"}} />
             </Icon>
             <Avatar src={data.image}/>
-            <Name>{data.title}</Name>
+            <InfoGroup>
+              <Name>{data.title}</Name>
+              <Online>{isTyping}</Online>
+            </InfoGroup>
+            
         </Info>
         <Buttons>
             <Icon>
@@ -233,7 +291,7 @@ export default function ChatWindows({user,setShowSlider,data}) {
               <Input type="text" 
                      placeholder="Digite uma mensagem" 
                      value={text} 
-                     onChange={e=>setText(e.target.value)} 
+                     onChange={e=>inputChange(e.target.value)} 
                      onKeyUp={handleInputKeyUp}
                      />
           </InputArea>

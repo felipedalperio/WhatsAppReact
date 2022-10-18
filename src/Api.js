@@ -46,7 +46,17 @@ export default{
         // e alem disso ele fala tambem quem são os usuários envolvidos nesse chat
         let newChat = await db.collection('chats').add({
             message:[],
-            users:[user.id,user2.id]
+            users:[user.id,user2.id],
+            typing:([
+                {
+                    idUser:user.id,
+                    typing:false,
+                },
+                {
+                    idUser:user2.id,
+                    typing:false,
+                }
+            ])
         });
         //adiciona a conversa no users para o destinatario
         db.collection('users').doc(user.id).update({
@@ -96,6 +106,30 @@ export default{
                     setList(data.message);
                     setUsers(data.users)
                 }
+        })
+    },
+    typing: async (chatId,idUser,typ)=>{
+        let u = await db.collection('chats').doc(chatId).get();
+        let uData = u.data();
+        if(uData.typing){
+            let typing = [...uData.typing];
+            for(let e in typing){
+                if(typing[e].idUser == idUser){
+                    typing[e].idUser = idUser;
+                    typing[e].typing = typ;
+                }
+            }
+            return await db.collection('chats').doc(chatId).update({
+                typing
+            });
+        }
+    },
+    onTyping: (chatId,setTyping)=>{
+        return db.collection('chats').doc(chatId).onSnapshot((doc)=>{
+            if(doc.exists){
+                let data = doc.data();
+                setTyping(data.typing);
+            }
         })
     },
     sendMessage: async (chatData,userId,type,body,users)=>{
