@@ -132,12 +132,12 @@ export default{
             }
         })
     },
-    sendMessage: async (chatData,userId,type,body,users)=>{
+    sendMessage: async (chatData,user,type,body,users)=>{
         let now = new Date();
         db.collection('chats').doc(chatData.chatId).update({
             message:firebase.firestore.FieldValue.arrayUnion({
                 type,
-                author:userId,
+                author:user.id,
                 body,
                 date:now
             })
@@ -154,9 +154,11 @@ export default{
                 for(let e in chats){
                     //Se for o meu chat
                     if(chats[e].chatId ==chatData.chatId){
-                        //eu vou trocar o lastMessage:
+                        let data =  await db.collection('users').doc(chats[e].with).get()
                         chats[e].lastMessage = body;
                         chats[e].lastMessageDate = now;
+                        chats[e].image = data.data().avatar;
+                        
                     }
                 }
 

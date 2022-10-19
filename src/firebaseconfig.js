@@ -1,8 +1,9 @@
-export default {
-    apiKey: "AIzaSyDwNmydsueFmoucE0B62svuWQYyP84zmic",
-    authDomain: "whatsappweb-1f005.firebaseapp.com",
-    projectId: "whatsappweb-1f005",
-    storageBucket: "whatsappweb-1f005.appspot.com",
-    messagingSenderId: "890523616308",
-    appId: "1:890523616308:web:b5f6d7fd6ba31b9559b661"
-  };
+
+export default  {
+  apiKey: "AIzaSyBnvrTKblvat1YaGTdI9JIgrt786jFOw8U",
+  authDomain: "whatasappweb.firebaseapp.com",
+  projectId: "whatasappweb",
+  storageBucket: "whatasappweb.appspot.com",
+  messagingSenderId: "514886177700",
+  appId: "1:514886177700:web:687f62e988945a62cbe731"
+};

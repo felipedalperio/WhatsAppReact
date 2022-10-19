@@ -168,18 +168,19 @@ export default function ChatWindows({user,setShowSlider,data}) {
 
   useEffect(() => {
     let unsub = Api.onTyping(data.chatId,setTyping);
-    
+
     for(let e in typing){
-        if(typing[e].idUser == data.with){
-           if(typing[e].typing == true){
-             setIsTyping("digitando...")
-           }else{
+      if(typing[e].idUser == data.with){
+          if(typing[e].typing == true){
+            setIsTyping("digitando...")
+          }else{
             setIsTyping("")
-           }
+          }
         }
     }
+
     return unsub;
-  });
+  },[typing]);
   
   const handleEmojiClick = (e, emojiObject) => {
     setText(text + emojiObject.emoji);
@@ -200,7 +201,7 @@ export default function ChatWindows({user,setShowSlider,data}) {
 
   const handleSendClick = () => {
     if(text !== ""){
-      Api.sendMessage(data,user.id,'text',text,users);
+      Api.sendMessage(data,user,'text',text,users);
       //sepois de enviar a mensagem limpa:
       setText('');
       setEmojiOpen(false);

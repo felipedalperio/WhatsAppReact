@@ -116,6 +116,7 @@ export default function Home() {
   const[showSlider,setShowSlider] = useState(true);
   const[showNewChat,setShowNewChat] = useState(false);
   const[user,setUser] = useState(null);
+
   const images = [
     './imgs/1.webp',
     './imgs/2.webp',
